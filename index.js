@@ -62,15 +62,14 @@ inquirer
     },
   ])
   .then((resp) => {
-    // console.log(resp);
     const manager = new Manager(
       resp.name,
       resp.id,
       resp.email,
       resp.officeNumber
     );
-    team.push(manager)
-    // console.log(manager);
+    team.push(manager);
+
     promptForNextEmployee();
   });
 
@@ -95,13 +94,6 @@ const promptForNextEmployee = () => {
       } else {
         buildPage();
       }
-
-      // if engineer
-      //    promptForEngineer
-      // else if intern
-      //    promptForIntern
-      // else
-      //    use the functionality from page-template to generate the team
     });
 };
 
@@ -152,20 +144,18 @@ const promptForEngineer = () => {
           return true;
         },
       },
-
-      //engineer questions
     ])
     .then((resp) => {
+      const engineer = new Engineer(
+        resp.name,
+        resp.id,
+        resp.email,
+        resp.github
+      );
       // add new engineer to employees array
-    const engineer = new Engineer(
-      resp.name,
-      resp.id,
-      resp.email,
-      resp.github
-    );
-    team.push(engineer)
+      team.push(engineer);
 
-      promptForNextEmployee()
+      promptForNextEmployee();
     });
 };
 
@@ -173,17 +163,58 @@ const promptForIntern = () => {
   inquirer
     .prompt([
       {
-        //intern questions
+        type: "input",
+        name: "name",
+        message: "Add the name of the Intern:\n >> ",
+        validate(answer) {
+          if (answer === "") {
+            return "You must add the Intern name!";
+          }
+          return true;
+        },
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "Add the Intern ID:\n >> ",
+        validate(answer) {
+          if (answer === "") {
+            return "You must add the Intern ID!";
+          }
+          return true;
+        },
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "Add the Intern Email:\n >> ",
+        validate(answer) {
+          if (answer === "") {
+            return "You must add the Intern Email!";
+          }
+          return true;
+        },
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "Add the Intern School name:\n >> ",
+        validate(answer) {
+          if (answer === "") {
+            return "You must add the Schoo name!";
+          }
+          return true;
+        },
       },
     ])
-    .then((response) => {
+    .then((resp) => {
+      const intern = new Intern(resp.name, resp.id, resp.email, resp.school);
       // add new intern to employees array
-      // promptForNextEmployee
+      team.push(intern);
+      promptForNextEmployee();
     });
 };
 
-
 const buildPage = () => {
-console.log(team)
-
+  console.log(team);
 };
