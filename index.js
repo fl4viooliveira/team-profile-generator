@@ -79,7 +79,7 @@ const promptForNextEmployee = () => {
       {
         type: "list",
         name: "employee",
-        message: "Which position do you want for your team?",
+        message: "Which position do you want for your team?\n ",
         choices: ["Engineer", "Intern", "The team doesn't need anyone else."],
         filter(val) {
           return val.toLowerCase();
@@ -92,7 +92,7 @@ const promptForNextEmployee = () => {
       } else if (resp.employee === "intern") {
         promptForIntern();
       } else {
-        buildPage();
+        buildPage()
       }
     });
 };
@@ -215,6 +215,10 @@ const promptForIntern = () => {
     });
 };
 
+
 const buildPage = () => {
-  console.log(team);
+
+  const html = render(team)
+  fs.writeFileSync(outputPath, html)
+
 };
