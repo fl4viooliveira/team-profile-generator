@@ -68,6 +68,7 @@ inquirer
       resp.email,
       resp.officeNumber
     );
+    // push manager to the team array
     team.push(manager);
 
     promptForNextEmployee();
@@ -87,6 +88,7 @@ const promptForNextEmployee = () => {
       },
     ])
     .then((resp) => {
+      // Conditional if to choose which prompt will be called accordin with the previews prompt choice.
       if (resp.employee === "engineer") {
         promptForEngineer();
       } else if (resp.employee === "intern") {
@@ -152,7 +154,7 @@ const promptForEngineer = () => {
         resp.email,
         resp.github
       );
-      // add new engineer to employees array
+      // add new engineer to team array
       team.push(engineer);
 
       promptForNextEmployee();
@@ -209,13 +211,14 @@ const promptForIntern = () => {
     ])
     .then((resp) => {
       const intern = new Intern(resp.name, resp.id, resp.email, resp.school);
-      // add new intern to employees array
+      // add new intern to team array
       team.push(intern);
       promptForNextEmployee();
     });
 };
 
 
+// Function to build the page calling render and adding the team array as a argument.
 const buildPage = () => {
 
   const html = render(team)
